@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>離職集點卡</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .points {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .stamp-card {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .stamp-cell {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      border-radius: 5px;
+    }
+
+    .stamp-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 id = "card-type">集點卡</h1>
+    <p>你的當前點數：<span class="points">10</span></p>
+    <div class="stamp-card" id="stampCard">
+      <!-- 100 個集點格子 -->
+      <script>
+        for (let i = 0; i < 100; i++) {
+          document.write('<div class="stamp-cell" id="cell-' + i + '"></div>');
+        }
+      </script>
+    </div>
+    <button class="stamp-button" onclick="addStamp()">集點</button>
+  </div>
+
+  <script>
+    let stampCount = localStorage.getItem("stampCount") || 0;
+
+    function addStamp() {
+      if (stampCount < 100) {
+        document.getElementById('cell-' + stampCount).innerText = '⭐';
+        stampCount++;
+        localStorage.setItem("stampCount", stampCount);
+      }
+    }
+
+    function setInit() {
+      const cardType = JSON.parse(localStorage.getItem("card")) || prompt("Please Enter card Type:");
+      const user = JSON.parse(localStorage.getItem("user")) || prompt("Please Enter your name:");
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("card_type", JSON.stringify(cardType));
+      document.getElementById('card-type').innerText = cardType
+    }
+
+    setInit()
+
+  </script>
+</body>
+
+</html>
