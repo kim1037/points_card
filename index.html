@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>離職集點卡</title>
+  <title>集點卡</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
     <h1 id = "card-type">集點卡</h1>
-    <p>你的當前點數：<span class="points">10</span></p>
+    <p>你的當前點數：<span class="points" id="stampCount">0</span></p>
     <div class="stamp-card" id="stampCard">
       <!-- 100 個集點格子 -->
       <script>
@@ -94,16 +94,17 @@
       }
     }
 
-    function setInit() {
-      const cardType = JSON.parse(localStorage.getItem("card")) || prompt("Please Enter card Type:");
+    function setInit(stampCount) {
+      const cardType = JSON.parse(localStorage.getItem("card")) || prompt("Please Enter card Type:") + '集點卡' ;
       const user = JSON.parse(localStorage.getItem("user")) || prompt("Please Enter your name:");
 
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("card_type", JSON.stringify(cardType));
       document.getElementById('card-type').innerText = cardType
+      document.getElementById('stampCount').innerText = stampCount
     }
 
-    setInit()
+    setInit(stampCount)
 
   </script>
 </body>
