@@ -70,7 +70,7 @@
 
 <body>
   <div class="container">
-    <h1 id = "card-type">集點卡</h1>
+    <h1 id="card">集點卡</h1>
     <p>你的當前點數：<span class="points" id="stampCount">0</span></p>
     <div class="stamp-card" id="stampCard">
       <!-- 100 個集點格子 -->
@@ -91,17 +91,23 @@
         document.getElementById('cell-' + stampCount).innerText = '⭐';
         stampCount++;
         localStorage.setItem("stampCount", stampCount);
+        document.getElementById('stampCount').innerText = stampCount
       }
     }
 
     function setInit(stampCount) {
-      const cardType = JSON.parse(localStorage.getItem("card")) || prompt("Please Enter card Type:") + '集點卡' ;
+      const cardType = JSON.parse(localStorage.getItem("card_type")) || prompt("Please Enter card Type:") + '集點卡';
       const user = JSON.parse(localStorage.getItem("user")) || prompt("Please Enter your name:");
 
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("card_type", JSON.stringify(cardType));
-      document.getElementById('card-type').innerText = cardType
+      document.getElementById('card').innerText = `${user}'s ${cardType}`
       document.getElementById('stampCount').innerText = stampCount
+      if (stampCount > 0) {
+        for (let i = 0; i < stampCount; i++) {
+          document.getElementById('cell-' + i).innerText = '⭐';
+        }
+      }
     }
 
     setInit(stampCount)
